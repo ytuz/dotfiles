@@ -9,7 +9,7 @@ export ZSH=/Users/yuriytuz/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="yuriy"
+ZSH_THEME="ekhabarov"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -61,10 +61,12 @@ ZSH_THEME="yuriy"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git,
-  zsh-autosuggestions,
-  tmux,
-  tmuxinator,
+  git
+  zsh-autosuggestions
+  tmux
+  tmuxinator
+  kube-ps1
+  nvm
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -74,14 +76,10 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -105,22 +103,28 @@ eval "$(direnv hook zsh)"
 eval "$(fasd --init auto)"
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
+export GOBIN=$GOPATH/bin
 
 eval "$(direnv hook zsh)"
 #export PATH=$PATH:$HOME/bin
 #export EDITOR='subl' -w
 
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=28'
+
 # if you do a 'rm *', Zsh will give you a sanity check!
 setopt RM_STAR_WAIT
 
 # zsh tmux settings
-ZSH_TMUX_AUTOSTART='true'
+# ZSH_TMUX_AUTOSTART='true'
 
-export CHECKOUT_REPO_PATH=/Users/yuriytuz/Dev/checkout
+export CHECKOUT_REPO_PATH=/Users/yuriytuz/Dev/cashier
 export CHECKOUT_HTTP_INTERNAL_PORT=8081
 export CHECKOUT_HTTPS_INTERNAL_PORT=8082
-export CHECKOUT_URI=https://checkout-yuriy-boldcommerce.fwd.wl
+# export CHECKOUT_URI=https://checkout-yuriy-boldcommerce.fwd.wl
+export CHECKOUT_URI=https://yuriy-local.bold.ninja
+export CHECKOUT_HOSTNAME=yuriy-local.bold.ninja
+
 alias fixDockerTime='docker run --rm --privileged centos:6.7 date -s "`date`"'
 
 export NVM_DIR="$HOME/.nvm"
@@ -136,36 +140,42 @@ alias lunch='curl -s "https://cdn.contentful.com/spaces/6qqte9wlq16o/entries?acc
 alias lunchw='curl -s "https://cdn.contentful.com/spaces/6qqte9wlq16o/entries?access_token=bab0ec81f61331d6e29f5c0e3164d8d506c5ae6957088607c0125a71124177c7" | jq .items[0].fields'
 alias dc='docker-compose'
 alias fw='while forward 8081 yuriy-local; do date >> ~/forwardhq.log; sleep 1; done'
+alias k='kubectl'
+alias kcg='kubectl config get-contexts'
+alias kcc='kubectl config use-context'
+alias gg='ginkgo'
+alias bold-encrypt='_bold_encrypt(){ echo "GOBOLD_KEY=$BOLD_ENCRYPTION_KEY bold encrypt $1"; GOBOLD_KEY=$BOLD_ENCRYPTION_KEY bold encrypt $1 };_bold_encrypt'
+alias bold-decrypt='_bold_decrypt(){ echo "GOBOLD_KEY=$BOLD_ENCRYPTION_KEY bold decrypt $1"; GOBOLD_KEY=$BOLD_ENCRYPTION_KEY bold decrypt $1 };_bold_decrypt'
 
-POWERLEVEL9K_MODE='awesome-patched'
+# POWERLEVEL9K_MODE='awesome-patched'
 
 # Disable dir/git icons
-POWERLEVEL9K_HOME_ICON=''
-POWERLEVEL9K_HOME_SUB_ICON=''
-POWERLEVEL9K_FOLDER_ICON=''
+# POWERLEVEL9K_HOME_ICON=''
+# POWERLEVEL9K_HOME_SUB_ICON=''
+# POWERLEVEL9K_FOLDER_ICON=''
 
-DISABLE_AUTO_TITLE="true"
+# DISABLE_AUTO_TITLE="true"
 
-POWERLEVEL9K_VCS_GIT_ICON=''
-POWERLEVEL9K_VCS_STAGED_ICON='\u00b1'
-POWERLEVEL9K_VCS_UNTRACKED_ICON='\u25CF'
-POWERLEVEL9K_VCS_UNSTAGED_ICON='\u00b1'
-POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\u2193'
-POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\u2191'
+# POWERLEVEL9K_VCS_GIT_ICON=''
+# POWERLEVEL9K_VCS_STAGED_ICON='\u00b1'
+# POWERLEVEL9K_VCS_UNTRACKED_ICON='\u25CF'
+# # POWERLEVEL9K_VCS_UNSTAGED_ICON='\u00b1'
+# # POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\u2193'
+# POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\u2191'
 
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='yellow'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='yellow'
-#POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+#POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='yellow'
+#POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='yellow'
+##POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs virtualenv rbenv rvm time)
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir vcs)
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs virtualenv rbenv rvm time)
 
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+#POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
+#POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
 
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M \uE868  %d.%m.%y}"
+# POWERLEVEL9K_TIME_FORMAT="%D{%H:%M \uE868  %d.%m.%y}"
 
-POWERLEVEL9K_STATUS_VERBOSE=false
+# POWERLEVEL9K_STATUS_VERBOSE=false
 export DEFAULT_USER="$USER"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -177,3 +187,18 @@ export DEFAULT_USER="$USER"
  export FZF_DEFAULT_COMMAND='ag -g ""'
 
  export PATH=/usr/local/php5/bin:$PATH
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yuriytuz/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yuriytuz/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yuriytuz/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yuriytuz/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+export WEBHOOK_APP_HOST=mayhem-yuriy.bold.ninja
