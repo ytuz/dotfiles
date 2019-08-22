@@ -1,0 +1,82 @@
+[url "git@github.com:"]
+  pushInsteadOf = https://github.com
+[url "git@github.com:"]
+  pushInsteadOf = git://github.com
+[url "git@git-lab.boldapps.net:"]
+    insteadOf = https://git-lab.boldapps.net
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = auto
+[gc]
+    auto=1
+
+[user]
+	name = yuriy
+    email = yuriy.tuz@boldcommerce.com
+[alias]
+    b = branch -v
+    r = remote -v
+    t = tag -l
+    lg = log --pretty='format:%C(yellow)%h %C(blue)%ad %C(reset)%s%C(red)%d %C(green)%an%C(reset), %C(cyan)%ar' --date=short
+    ; lg = !"git lg1"
+    lg1 = !"git lg1-specific --all"
+    lg2 = !"git lg2-specific --all"
+    lg3 = !"git lg3-specific --all"
+
+    lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+    lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+    lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+    lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    a = add
+
+    #diff
+      d = diff -w --text
+  dm = diff master..HEAD
+  dc = d --cached
+  dw = d --word-diff
+  ds = d --ignore-space-change
+  dsw = ds --word-diff
+  dswc= ds --word-diff=color
+  duf = diff --diff-filter=U
+  dus = duf --name-only
+
+  # Commit
+  cc = commit
+
+  # Checkout
+  co = checkout
+  cob = co -b
+
+# Cherry-pick
+  cp = cherry-pick
+  cpa = cp --abort
+  cpc = cp --continue
+
+# Branch
+  br = branch
+  bra = br -a
+
+  # Push/pull/fetch
+  pm = push origin master
+  gm = pull origin master
+  pd = push origin develop
+  gd = pull origin develop
+  pf = push fork
+  gf = pull fork
+  f  = fetch
+  fu = fetch upstream
+
+  # Stash
+  ss = stash
+  sp = stash pop
+  sa = stash apply
+  sl = stash list
+
+
+[core]
+	editor = nvim
+    excludesfile = ~/.gitignore_global
+	autocrlf = input
